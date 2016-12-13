@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   has_one :kyc_paper
 
+  has_many :btc_addresses
+
   def operator?
     self.operator
   end

@@ -13,6 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20161213044709) do
 
+  create_table "btc_addresses", force: :cascade do |t|
+    t.string   "address",    limit: 255
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "btc_addresses", ["user_id"], name: "index_btc_addresses_on_user_id", using: :btree
+
   create_table "contacts", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
     t.string   "message",    limit: 255
@@ -64,6 +73,12 @@ ActiveRecord::Schema.define(version: 20161213044709) do
     t.datetime "updated_at",                        null: false
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.string   "key",        limit: 255
+    t.string   "value",      limit: 255
+    t.datetime "created_at",             null: false
+  end
+
   create_table "shops", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "address",    limit: 255
@@ -93,4 +108,5 @@ ActiveRecord::Schema.define(version: 20161213044709) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "btc_addresses", "users"
 end
