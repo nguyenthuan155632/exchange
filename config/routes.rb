@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     namespace :user do
       resources :home, only: :index
       resources :kycs
+      resources :reservations, only: [:new, :create]
     end
     root 'home#index'
   end
