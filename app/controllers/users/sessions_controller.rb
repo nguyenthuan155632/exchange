@@ -3,7 +3,11 @@ class Users::SessionsController < Devise::SessionsController
     if resource.operator?
       operator_home_index_path
     else
-      user_home_index_path
+      if resource.kyc_paper
+        user_home_index_path
+      else
+        new_user_kyc_path
+      end
     end
   end
 end

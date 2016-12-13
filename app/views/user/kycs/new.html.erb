@@ -1,0 +1,59 @@
+<h1>New Kyc</h1>
+<%= form_for :kyc_paper, url: user_kycs_path do |f| %>
+  <div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Have Passport</a></li>
+      <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">No Passport</a></li>
+
+  </div>
+   <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="home">
+          <p>
+            <%= f.label :passport_your_self %><br>
+            <%= f.file_field :passport_your_self %>
+          </p>
+         
+          <p>
+            <%= f.label :passport %><br>
+            <%= f.file_field :passport %>
+          </p>
+
+          <p>
+            <%= f.label :address_front %><br>
+            <%= f.file_field :address_front %>
+          </p>
+
+          <p>
+            <%= f.label :address_after %><br>
+            <%= f.file_field :address_after %>
+          </p>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="profile">
+        <p>
+          <%= f.label :driver_your_self %><br>
+          <%= f.file_field :driver_your_self %>
+        </p>
+       
+        <p>
+          <%= f.label :driver_front %><br>
+          <%= f.file_field :driver_front %>
+        </p>
+
+        <p>
+          <%= f.label :driver_after %><br>
+          <%= f.file_field :driver_after %>
+        </p>
+       
+        <p>
+          <%= f.label :utility_bill %><br>
+          <%= f.file_field :utility_bill %>
+        </p>
+       
+        
+      </div>
+    </div>
+    <p>
+      <%= f.submit "Save" %>
+    </p>
+<% end %>
