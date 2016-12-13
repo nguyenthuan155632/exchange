@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
     namespace :user do
       resources :home, only: :index
+      resources :kycs
     end
     root 'home#index'
   end
