@@ -5,6 +5,11 @@ Rails.application.routes.draw do
       registrations: 'users/registrations',
       passwords: 'users/passwords'
     }
+    devise_for :operators, controllers: {
+      sessions: 'operators/sessions',
+      registrations: 'operators/registrations',
+      passwords: 'operators/passwords'
+    }
     namespace :operator do
       resources :home, only: :index
     end
@@ -12,6 +17,8 @@ Rails.application.routes.draw do
     namespace :user do
       resources :home, only: :index
       resources :kycs
+      resources :users, only: [:show, :edit, :update]
+      resources :reservations, only: [:new, :create]
     end
     root 'home#index'
   end
