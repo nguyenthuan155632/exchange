@@ -4,6 +4,7 @@ class User::KycsController < User::BaseController
   end
 
   def new
+    @kyc_paper = KycPaper.new
   end
 
   def create

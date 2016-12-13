@@ -1,0 +1,23 @@
+<h1>List Store</h1>
+<p><%= link_to "Add new Store", new_operator_store_path %></p>
+<table class="table table-hover">
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Phone</th>
+    <th>Deposit</th>
+    <th colspan="2"></th>
+  </tr>
+  
+  <% @stores.each do |s| %>
+    <tr>
+      <td><%= link_to s.name, operator_store_path(s.id) %></td>
+      <td><%= s.address %></td>
+      <td><%= s.phone %></td>
+      <td><%= s.deposit %></td>
+      <td><%= link_to "Edit", edit_operator_store_path(s.id) %></td>
+      <td><%= link_to "Delete", operator_store_path(s.id), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+    </tr>
+  <% end -%>
+</table>
+<%= will_paginate @posts %>

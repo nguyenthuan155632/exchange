@@ -83,8 +83,10 @@ ActiveRecord::Schema.define(version: 20161213044709) do
   create_table "shops", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "address",    limit: 255
-    t.string   "setting",    limit: 255
+    t.string   "phone",      limit: 255
     t.float    "deposit",    limit: 24
+    t.string   "lat",        limit: 255
+    t.string   "long",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

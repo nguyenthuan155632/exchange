@@ -3,5 +3,9 @@
 <p>Email: <%= @user.email %></p>
 <p>Password: <%= link_to 'Change Password', edit_user_registration_path %></p>
 <p><%= link_to 'Change Profile', edit_user_user_path %></p>
-<p><%= link_to 'Change KYC Paper', edit_user_kyc_path(current_user.kyc_paper.try(:id)) %></p>
+<% if current_user.kyc_paper %>
+  <p><%= link_to 'Change KYC Paper', edit_user_kyc_path(current_user.kyc_paper.try(:id)) %></p>
+<% else %>
+  <p><%= link_to 'Create KYC Paper', new_user_kyc_path %></p>
+<% end -%>
 <p><%= link_to "FAQ" %></p>

@@ -3,8 +3,10 @@ class CreateShops < ActiveRecord::Migration
     create_table :shops do |t|
       t.string  :name
       t.string  :address
-      t.string  :setting
+      t.string  :phone
       t.float   :deposit
+      t.string  :lat
+      t.string  :long
 
       t.timestamps null: false
     end

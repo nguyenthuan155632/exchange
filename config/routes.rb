@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     }
     namespace :operator do
       resources :home, only: :index
+      resources :stores
     end
 
     namespace :user do
