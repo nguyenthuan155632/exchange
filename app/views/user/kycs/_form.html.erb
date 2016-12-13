@@ -1,0 +1,64 @@
+<%= form_for @kyc_paper, url: url_value, method: method_value do |f| %>
+  <div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Have Passport</a></li>
+      <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">No Passport</a></li>
+    </ul>
+   <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="home">
+          <div class="form-group">
+            <%= f.label :passport_your_self %>
+            <%= image_tag @kyc_paper.try(:passport_your_self_url), width: 300, class: "img-responsive" %>
+            <%= f.file_field :passport_your_self %>
+          </div>
+         
+          <div class="form-group">
+            <%= f.label :passport %>
+            <%= image_tag @kyc_paper.try(:passport_url), width: 300, class: "img-responsive" %>
+            <%= f.file_field :passport %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :address_front %>
+            <%= image_tag @kyc_paper.try(:address_front_url), width: 300, class: "img-responsive" %>
+            <%= f.file_field :address_front %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :address_after %>
+            <%= image_tag @kyc_paper.try(:address_after_url), width: 300, class: "img-responsive" %>
+            <%= f.file_field :address_after %>
+          </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="profile">
+        <div class="form-group">
+          <%= f.label :driver_your_self %>
+          <%= image_tag @kyc_paper.try(:driver_your_self_url), width: 300, class: "img-responsive" %>
+          <%= f.file_field :driver_your_self %>
+        </div>
+       
+        <div class="form-group">
+          <%= f.label :driver_front %>
+          <%= image_tag @kyc_paper.try(:driver_front_url), width: 300, class: "img-responsive" %>
+          <%= f.file_field :driver_front %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :driver_after %>
+          <%= image_tag @kyc_paper.try(:driver_after_url), width: 300, class: "img-responsive" %>
+          <%= f.file_field :driver_after %>
+        </div>
+       
+        <div class="form-group">
+          <%= f.label :utility_bill %>
+          <%= image_tag @kyc_paper.try(:utility_bill_url), width: 300, class: "img-responsive" %>
+          <%= f.file_field :utility_bill %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p>
+    <%= f.submit "Submit", class: "btn btn-default" %>
+  </p>
+<% end -%>

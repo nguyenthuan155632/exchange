@@ -1,0 +1,7 @@
+<h1>My page</h1>
+<p>Account name: <%= @user.user_name %></p>
+<p>Email: <%= @user.email %></p>
+<p>Password: <%= link_to 'Change Password', edit_user_registration_path %></p>
+<p><%= link_to 'Change Profile', edit_user_user_path %></p>
+<p><%= link_to 'Change KYC Paper', edit_user_kyc_path(current_user.kyc_paper.try(:id)) %></p>
+<p><%= link_to "FAQ" %></p>
