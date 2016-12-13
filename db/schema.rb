@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20161213044709) do
     t.string   "key",        limit: 255
     t.string   "value",      limit: 255
     t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "shops", force: :cascade do |t|

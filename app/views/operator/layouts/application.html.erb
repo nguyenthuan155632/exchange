@@ -10,22 +10,20 @@
 <body>
 <!-- Header -->
 <header>
-  <!-- Logo -->
   <div class="logo"></div>
-  <!-- Menu -->
   <nav>
     <ul>
       <li>
         <%= link_to "Home", root_path %>
       </li>
-      <% if current_user %>
+      <% if current_operator %>
         <li>
-          <%= current_user.user_name %>
-          <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+          <%= current_operator.user_name %>
+          <%= link_to "Logout", destroy_operator_session_path, method: :delete %>
         </li>
       <% else %>
         <li>
-          <%= link_to "Login", new_user_session_path %>
+          <%= link_to "Login", new_operator_session_path %>
         </li>
       <% end -%>
         <%= link_to "English", :locale=>'en'%>
@@ -33,16 +31,23 @@
     </ul>
   </nav>
 </header>
-<% flash.each do |name, msg| %>
-  <% if msg.class == Array %>
-    <% msg.each do |message| %>
-      <%= content_tag :div, message, :id => "flash_#{name}" %>
+
+<!-- Content -->
+<div class="container">
+  <div class="row">
+    <% flash.each do |name, msg| %>
+      <% if msg.class == Array %>
+        <% msg.each do |message| %>
+          <%= content_tag :div, message, :id => "flash_#{name}" %>
+        <% end %>
+      <% else %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
     <% end %>
-  <% else %>
-    <%= content_tag :div, msg, :id => "flash_#{name}" %>
-  <% end %>
-<% end %>
-<%= yield %>
+    <%= yield %>
+  </div>
+</div>
+
 <!-- Footer -->
 </body>
 </html>
