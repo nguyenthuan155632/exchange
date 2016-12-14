@@ -6,9 +6,11 @@
 	<button id="nearest-point" >SEARCH NEAREST SHOP</button>
 </div>
 
+<%= javascript_include_tag 'https://code.jquery.com/jquery-2.2.4.min.js' %>
 <script>
   function storeMap() {
-    stores = '<%= @stores.html_safe %>';
+    stores = '<%= escape_javascript(@stores.html_safe) %>';
+    // stores = '[{"id":1,"name":"O Connell-Reilly","address":"92720 Cydney Square","phone":"237-082-7120","deposit":90.58,"lat":"-24.678901512160408","long":"-15.445538767426655","operator_id":null,"created_at":"2016-12-14T08:25:27.000Z","updated_at":"2016-12-14T08:25:27.000Z"}]';
     stores = $.parseJSON(stores);
 
     var _store = {lat: -46.22067326359609, lng: -92.91650604852009};
@@ -38,6 +40,8 @@
  	}
 
  	$(document).ready(function() {
+    google.maps.event.addDomListener(window, 'load', storeMap);
+
  	  $('#nearest-point').on('click', function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -71,6 +75,4 @@
     });
  	});
 
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHfB9CrGOMGGLGwe17L9GpQVffFk9eeOM&callback=storeMap&libraries=geometry">
 </script>
