@@ -7,8 +7,6 @@ class User < ActiveRecord::Base
   has_one :kyc_paper
 
   has_many :btc_addresses
+  has_many :reservations
 
-  def operator?
-    self.operator
-  end
 end
