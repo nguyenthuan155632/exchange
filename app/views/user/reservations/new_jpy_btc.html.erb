@@ -1,0 +1,24 @@
+<h1>JPY -> BTC exchange</h1>
+<%= form_for :reservation, url: create_jpy_btc_user_reservations_path do |f| %>
+  <div class="form-group">
+    <%= f.label :sending_amount_jpy %><br>
+    <%= f.number_field :amout, { required: 'true', class: "form-control jpy_btc" } %>
+  </div>
+  <div class="form-group">
+    <%= f.label :btc_address %><br>
+    <%= f.select :btc_address_id, current_user.btc_addresses.collect { |b| [ b.address, b.id ] }, { include_blank: "Select address" }, { required: 'true', autofocus: 'true', class: "form-control" } %>
+  </div>
+  <div class="form-group">
+    <%= link_to "New BTC address", new_btc_address_user_reservations_path %>
+  </div>
+  <div class="form-group">
+    <%= f.label :rate %><br>
+    <p class="help-block">1 BTC = &nbsp;
+      <%= number_to_currency @btc_jpy, delimiter: ",", unit: "¥", format: "%u %n" %></p>
+  </div>
+  <div class="form-group">
+    <%= f.label "BTC you will receive" %><br>
+    <p class="help-block jpy_value">0 BTC</p>
+  </div>
+  <%= f.submit "Exchange", class: "btn btn-default" %>
+<% end -%>

@@ -1,0 +1,3 @@
+<%= @new_address %>
+<%= image_tag "https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=bitcoin:#{@new_address}?amount=#{@reservation.amout}" %> 
+<%= link_to "Back", new_user_reservation_path %>

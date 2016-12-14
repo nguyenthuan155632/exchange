@@ -1,5 +1,5 @@
 class User::KycsController < User::BaseController
-  before_action :get_kyc_paper, only: [:edit, :update]
+  before_action :get_kyc_paper, only: [:edit, :update, :show]
   def index
   end
 
@@ -24,6 +24,9 @@ class User::KycsController < User::BaseController
     else
       render "edit"
     end
+  end
+
+  def show
   end
 
   private
