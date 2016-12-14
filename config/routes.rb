@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       resources :kycs
       resources :users, only: [:show, :edit, :update]
       resources :reservations, only: [:new, :create]
-      resources :stores, only: [:show]
+      resources :stores, only: [:index]
     end
     root 'home#index'
   end
