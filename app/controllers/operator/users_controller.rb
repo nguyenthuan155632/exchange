@@ -12,7 +12,12 @@ class Operator::UsersController < Operator::BaseController
   end
 
   def update
-    
+    if @user.update(update_params)
+      flash[:success] = "Update profile success!"
+      redirect_to operator_users_path
+    else
+      render "edit"
+    end
   end
 
   def destroy
@@ -29,7 +34,8 @@ class Operator::UsersController < Operator::BaseController
     def get_user
       @user = User.find(params[:id])
     end
-    # def update_params
-    #   params.require(:user).permit(:user_name, :email)
-    # end
+
+    def update_params
+      params.require(:user).permit(:user_name, :email)
+    end
 end

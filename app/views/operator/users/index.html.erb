@@ -5,7 +5,6 @@
     <th>Email</th>
     <th>Registered Date</th>
     <th colspan="2"></th>
-    <th>KYC confirmed</th>
     <th></th>
   </tr>
   
@@ -16,7 +15,6 @@
       <td><%= u.created_at %></td>
       <td><%= link_to "Detail", operator_user_path(u.id) %></td>
       <td><%= link_to "Edit", edit_operator_user_path(u.id) %></td>
-      <td><%= link_to "Edit KYC", edit_operator_kyc_path(u.id) %></td>
       <td><%= link_to "Delete", operator_user_path(u.id), method: :delete, data: {confirm: 'Are you sure?'} %></td>
     </tr>
   <% end -%>
