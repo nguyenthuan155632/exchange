@@ -1,0 +1,76 @@
+<div class="row">
+	<div id="store-map"></div>
+</div>
+
+<div class="row text-center">
+	<button id="nearest-point" >SEARCH NEAREST SHOP</button>
+</div>
+
+<script>
+  function storeMap() {
+    stores = '<%= @stores.html_safe %>';
+    stores = $.parseJSON(stores);
+
+    var _store = {lat: -46.22067326359609, lng: -92.91650604852009};
+    map = new google.maps.Map(document.getElementById('store-map'), {
+      zoom: 0,
+      center: _store,
+      mapTypeId: google.maps.MapTypeId.ROAD
+    });
+
+    var icon = {
+	    url: "/images/map-marker.png",
+	    scaledSize: new google.maps.Size(50, 50)
+		};
+
+    var marker;
+    for (i = 0; i < stores.length; i++) { 
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(stores[i]["lat"], stores[i]["long"]),
+        icon: icon,
+        map: map
+      });
+    }
+  }
+
+  function calcDistanceMap (fromLat, fromLng, toLat, toLng) {
+    return google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(fromLat, fromLng), new google.maps.LatLng(toLat, toLng));
+ 	}
+
+ 	$(document).ready(function() {
+ 	  $('#nearest-point').on('click', function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          
+          var data = [];
+          for(var i = 0; i < stores.length; i++) {
+            distance = calcDistanceMap(pos.lat, pos.lng, parseFloat(stores[i].lat), parseFloat(stores[i].long));
+            data[i] = {
+              lat: parseFloat(stores[i].lat),
+              lng: parseFloat(stores[i].long),
+              distance: distance
+            }
+          }
+          var min = data.sort(function (a, b) {
+            return a.distance - b.distance
+          })[0];
+
+          map.setCenter(min);
+          map.setZoom(9);
+
+        }, function() {
+          alert("Cannot get current position");
+        });
+      } else {
+        alert("Browser doesn't support Geolocation");
+      }
+    });
+ 	});
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHfB9CrGOMGGLGwe17L9GpQVffFk9eeOM&callback=storeMap&libraries=geometry">
+</script>

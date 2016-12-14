@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :home, only: :index
       resources :kycs
       resources :users, only: [:show, :edit, :update]
+      resources :stores, only: [:index]
       resources :reservations, only: [:new, :create, :show] do
         collection do
           get :new_jpy_btc
