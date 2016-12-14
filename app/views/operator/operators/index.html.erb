@@ -1,18 +1,19 @@
 <h1>Operator Management</h1>
-<p><%= link_to "Add new Operator", new_operator_store_path %></p>
+<p><%= link_to "Add new Operator", new_operator_registration_path %></p>
 <table class="table table-hover">
   <tr>
-    <th>Name</th>
-    <th>Phone</th>
-    <th>Deposit</th>
+    <th>User Name</th>
+    <th>Authority</th>
+    <th>Shop</th>
     <th colspan="2"></th>
   </tr>
   
-  <% @operators.each do |s| %>
+  <% @operators.each do |o| %>
     <tr>
-      
-      <td><%= link_to "Edit", edit_operator_store_path(s.id) %></td>
-      <td><%= link_to "Delete", operator_store_path(s.id), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      <td><%= o.user_name %></td>
+      <td><%= o.get_admin %></td>
+      <td><%= link_to "Detail", edit_operator_store_path(o.id) %></td>
+      <td><%= link_to "Edit", operator_store_path(o.id) %></td>
     </tr>
   <% end -%>
 </table>

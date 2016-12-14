@@ -12,4 +12,12 @@ class Operator < ActiveRecord::Base
     false
   end
   
+  def get_admin
+    if self.admin
+      "Admin"
+    else
+      "Shop"
+    end
+  end
+
 end
