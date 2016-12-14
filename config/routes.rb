@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     namespace :operator do
       resources :home, only: :index
       resources :stores
+      resources :kycs
+      resources :users, only: [:index, :show, :edit, :update, :destroy]
     end
 
     namespace :user do
