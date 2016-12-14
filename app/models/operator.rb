@@ -4,6 +4,8 @@ class Operator < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:user_name]
 
+  has_many :shops
+
   def email_required?
     false
   end

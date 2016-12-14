@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     namespace :operator do
       resources :home, only: :index
       resources :stores
-      resources :operators
+      resources :operators, only: [:index, :show] do
+        member do
+          get :get_shop
+        end
+      end
     end
 
     namespace :user do
