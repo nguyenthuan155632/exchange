@@ -18,6 +18,12 @@ Rails.application.routes.draw do
           get :get_shop
         end
       end
+      resources :aggregates, only: :index do
+        collection do
+          post  :update_rate
+          post  :update_percent
+        end
+      end
     end
 
     namespace :user do
