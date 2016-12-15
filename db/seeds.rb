@@ -23,10 +23,18 @@ end
   BtcAddress.create(address: Faker::Bitcoin.address, user_id: Faker::Number.between(1, 50), shop_id: Faker::Number.between(1, 50))
 end
 
-(1..200).each do
+(1..50).each do
+  Reservation.create(amout: Faker::Number.decimal(7, 0), rate: 64948, btc_jpy: false, status: 0, user_id: 1, shop_id: Faker::Number.between(1, 50), btc_address_id: Faker::Number.between(1, 100))
+end
+
+(1..100).each do
   Reservation.create(amout: Faker::Number.decimal(7, 0), rate: 64948, btc_jpy: false, status: 0, user_id: Faker::Number.between(1, 50), shop_id: Faker::Number.between(1, 50), btc_address_id: Faker::Number.between(1, 100))
 end
 
-(1..200).each do
+(1..50).each do
+  Reservation.create(amout: Faker::Number.decimal(2, 0), rate: 2, btc_jpy: true, status: 0, user_id: 1, shop_id: Faker::Number.between(1, 50), btc_address_id: Faker::Number.between(1, 100))
+end
+
+(1..100).each do
   Reservation.create(amout: Faker::Number.decimal(2, 0), rate: 2, btc_jpy: true, status: 0, user_id: Faker::Number.between(1, 50), shop_id: Faker::Number.between(1, 50), btc_address_id: Faker::Number.between(1, 100))
 end
