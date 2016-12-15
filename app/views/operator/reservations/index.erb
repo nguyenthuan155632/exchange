@@ -1,0 +1,79 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><h2>Exchanges History</h2></div>
+  <div class="panel-body">
+    <%= search_form_for @q, url: operator_reservations_path, class: "text-center" do |f| %>
+      <div class="form-group col-sm-6">
+        <%= f.search_field :user_user_name_cont, class: "form-control", placeholder: "Name of User's Account" %>
+      </div>
+      <div class="form-group col-sm-6">
+        <%= f.search_field :btc_address_address_cont, class: "form-control", placeholder: "BTC Address" %>
+      </div>
+      <div class="form-group col-sm-6">
+        <%= f.number_field :amout_gteq, class: "form-control", placeholder: "Minimum Exchange Amount" %>
+      </div>
+      <div class="form-group col-sm-6">
+        <%= f.number_field :amout_lteq, class: "form-control", placeholder: "Maximum Exchange Amount" %>
+      </div>
+      <div class="form-group col-sm-6">
+        <%= f.select :status_eq, { "Status" => "", "Receiving" => 0, "Exchange completed" => 1, "Not applicable" => 2 }, {}, { class: "form-control" } %>
+      </div>
+      <div class="form-group col-sm-6">
+        <%= f.select :btc_jpy_eq, { "Exchange Type" => "", "「JPY → BTC」" => false, "「BTC → JPY」" => true }, {}, { class: "form-control" } %>
+      </div>
+      <div class="form-group col-sm-6">
+        <%= f.collection_select :shop_id_eq, Shop.all, :id, :name, { prompt: "Select Store" }, { :class => "form-control" } %>
+      </div>
+      <div style="clear: both;"></div>
+      <%= link_to "Cancel", operator_reservations_path, class: "btn btn-default" %>
+      <%= f.submit "Search", class: "btn btn-default" %>
+    <% end %>
+    <table class="table table-hover" style="margin-top: 10px">
+      <tr>
+        <th><%= sort_link(@q, :user_user_name, 'Name of User\'s account') %></th>
+        <th><%= sort_link(@q, :created_at, 'Reservation date') %></th>
+        <th><%= sort_link(@q, :amout, 'Exchange amount') %></th>
+        <th><%= sort_link(@q, :btc_address_address, 'BTC address') %></th>
+        <th>BTC amount</th>
+        <th>Status</th>
+        <th><%= sort_link(@q, :shop_name, 'Receiving place') %></th>
+        <th>Types of exchange</th>
+        <th>Date and time of receipt</th>
+        <th></th>
+      </tr>
+      <% @reservations.each do |r| %>
+        <tr>
+          <%= form_for r, url: operator_update_status_path, method: 'post' do |f| %>
+          <%=  f.hidden_field :id %>
+          <td><%= r.user.user_name %></td>
+          <% if r.btc_jpy %>
+          <td><%= r.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+          <% else %>
+          <td></td>
+          <% end %>
+          <td><%= r.amout %></td>
+          <td><%= r.btc_address.address %></td>
+          <td class="text-danger">Doing</td>
+          <% if r.status == 0 %>
+          <td><%= f.select :status, { "Receiving" => 0, "Exchange completed" => 1, "Not applicable" => 2 } %></td>
+          <% else %>
+          <td><%= f.select :status, { "Receiving" => 0, "Exchange completed" => 1, "Not applicable" => 2 }, {}, {:disabled => true} %></td>
+          <% end %>
+          <% if r.btc_jpy %>
+          <td><%= r.shop.name %></td>
+          <% else %>
+          <td></td>
+          <% end %>
+          <td><%= r.get_type %></td>
+          <td class="text-danger">※変更</td>
+          <% if r.status == 0 %>
+          <td class="text-success"><%= f.submit "Update", class: "btn btn-success" %></td>
+          <% else %>
+          <td></td>
+          <% end %>
+          <% end %>
+        </tr>
+      <% end -%>
+    </table>
+    <%= will_paginate @reservations %>
+  </div>
+</div>

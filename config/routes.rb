@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     namespace :operator do
       resources :home, only: :index
       resources :stores
+      resources :reservations, only: [:index]
+
+      post 'update_status', to: 'reservations#update_status'
       resources :kycs, only: [:edit, :update]
       resources :users, only: [:index, :show, :edit, :update, :destroy]
 
