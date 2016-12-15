@@ -1,0 +1,9 @@
+.sort_link {
+	text-decoration: none;
+	color: #6d6d6d;
+}
+
+a.sort_link:hover {
+	text-decoration: none;
+	cursor: pointer;
+}

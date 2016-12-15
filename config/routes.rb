@@ -14,6 +14,9 @@ Rails.application.routes.draw do
       resources :home, only: :index
       resources :stores
       resources :operators
+      resources :reservations, only: [:index]
+
+      post 'update_status', to: 'reservations#update_status'
     end
 
     namespace :user do
