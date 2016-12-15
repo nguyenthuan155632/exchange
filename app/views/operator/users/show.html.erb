@@ -1,0 +1,20 @@
+<h1>User Detail</h1>
+<table class="table table-hover">
+  <tr>
+    <th>User Name</th>
+    <td><%= @user.user_name %></td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td><%= @user.email %></td>
+  </tr>
+  <tr>
+    <th>Registered Date</th>
+    <td><%= @user.created_at %></td>
+  </tr>
+</table>
+<% if @user.kyc_paper %>
+  <%= link_to "Edit KYC", edit_operator_kyc_path(@user.kyc_paper) %>
+<% else %>
+  <p class="text-danger">Kyc has not yet confirmed!</p>
+<% end %>

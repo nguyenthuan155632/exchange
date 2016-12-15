@@ -13,10 +13,24 @@ Rails.application.routes.draw do
     namespace :operator do
       resources :home, only: :index
       resources :stores
-      resources :operators
       resources :reservations, only: [:index]
 
       post 'update_status', to: 'reservations#update_status'
+      resources :kycs, only: [:edit, :update]
+      resources :users, only: [:index, :show, :edit, :update, :destroy]
+
+      post 'kycs/:id/confirm' => 'kycs#confirm', as: 'confirm_kyc'
+      resources :operators, only: [:index, :show] do
+        member do
+          get :get_shop
+        end
+      end
+      resources :aggregates, only: :index do
+        collection do
+          post  :update_rate
+          post  :update_percent
+        end
+      end
     end
 
     namespace :user do

@@ -1,7 +1,7 @@
 class Operator::StoresController < Operator::BaseController
   before_action :get_store, only: [:edit, :update, :destroy, :show]
   def index
-    @stores = Shop.paginate(:page => params[:page], :per_page => 5)
+    @stores = Shop.paginate(:page => params[:page], :per_page => 5).includes(:operator)
   end
 
   def new
