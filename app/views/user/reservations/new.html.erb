@@ -1,17 +1,21 @@
 <h1>New reservation exchange</h1>
 <%= form_for :reservation, url: user_reservations_path do |f| %>
   <div class="form-group">
-    <%= f.label :receiving_amount %><br>
-    <%= f.number_field :receiving_amount, class: "form-control" %>
+    <%= f.label :sending_amount_btc %><br>
+    <%= f.number_field :amout, { required: 'true', class: "form-control" } %>
   </div>
   <div class="form-group">
     <%= f.label :receiving_place %><br>
-    <%= f.number_field :receiving_place, class: "form-control" %>
+    <%= f.select :shop_id, Shop.all.collect { |s| [ s.name, s.id ] }, { include_blank: "Select place" }, { required: 'true', autofocus: 'true', class: "form-control" } %>
   </div>
   <div class="form-group">
     <%= f.label :rate %><br>
     <p class="help-block">1 BTC = &nbsp;
       <%= number_to_currency @btc_jpy.value, delimiter: ",", unit: "¥", format: "%u %n", precision: 0 %></p>
+  </div>
+  <div class="form-group">
+    <%= f.label "JPY you will receive" %><br>
+    <p class="help-block btc_value">¥ 0</p>
   </div>
   <%= f.submit "Reserve", class: "btn btn-default" %>
 <% end -%>

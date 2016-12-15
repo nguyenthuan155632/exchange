@@ -1,0 +1,19 @@
+<h1>Operator Management</h1>
+<p><%= link_to "Add new Operator", new_operator_registration_path %></p>
+<table class="table table-hover">
+  <tr>
+    <th>User Name</th>
+    <th>Authority</th>
+    <th>Shop</th>
+    <th colspan="2"></th>
+  </tr>
+  
+  <% @operators.each do |o| %>
+    <tr>
+      <td><%= o.user_name %></td>
+      <td><%= o.get_admin %></td>
+      <td><%= link_to "Detail", operator_operator_path(o.id) %></td>
+      <td><%= link_to "Get shop", get_shop_operator_operator_path(o.id) %></td>
+    </tr>
+  <% end -%>
+</table>

@@ -7,6 +7,7 @@ class CreateShops < ActiveRecord::Migration
       t.float   :deposit
       t.string  :lat
       t.string  :long
+      t.references :operator
 
       t.timestamps null: false
     end

@@ -17,14 +17,36 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :edit, :update, :destroy]
 
       post 'kycs/:id/confirm' => 'kycs#confirm', as: 'confirm_kyc'
+      resources :operators, only: [:index, :show] do
+        member do
+          get :get_shop
+        end
+      end
+      resources :aggregates, only: :index do
+        collection do
+          post  :update_rate
+          post  :update_percent
+        end
+      end
     end
 
     namespace :user do
+      get 'history', to: "reservations#get_list"
       resources :home, only: :index
       resources :kycs
       resources :users, only: [:show, :edit, :update]
-      resources :reservations, only: [:new, :create]
+      resources :stores, only: [:index]
+      resources :reservations, only: [:new, :create, :show] do
+        collection do
+          get :new_jpy_btc
+          post :create_jpy_btc
+          get :new_btc_address
+          post :create_btc_address
+        end
+      end
     end
+    get 'btc_value', to: "user/reservations#btc_value"
+    get 'jpy_value', to: "user/reservations#jpy_value"
     root 'home#index'
   end
   

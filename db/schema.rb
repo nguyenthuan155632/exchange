@@ -11,15 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213044709) do
+ActiveRecord::Schema.define(version: 20161215041420) do
+
+  create_table "balances", force: :cascade do |t|
+    t.float    "amount",     limit: 24
+    t.integer  "shop_id",    limit: 4
+    t.boolean  "jpy_btc",    limit: 1
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
 
   create_table "btc_addresses", force: :cascade do |t|
     t.string   "address",    limit: 255
     t.integer  "user_id",    limit: 4
+    t.integer  "shop_id",    limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
+  add_index "btc_addresses", ["shop_id"], name: "index_btc_addresses_on_shop_id", using: :btree
   add_index "btc_addresses", ["user_id"], name: "index_btc_addresses_on_user_id", using: :btree
 
   create_table "contacts", force: :cascade do |t|
@@ -45,32 +55,34 @@ ActiveRecord::Schema.define(version: 20161213044709) do
   end
 
   create_table "operators", force: :cascade do |t|
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.string   "user_name",              limit: 255, default: "", null: false
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.string   "user_name",              limit: 255, default: "",    null: false
+    t.boolean  "admin",                  limit: 1,   default: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
   add_index "operators", ["reset_password_token"], name: "index_operators_on_reset_password_token", unique: true, using: :btree
   add_index "operators", ["user_name"], name: "index_operators_on_user_name", unique: true, using: :btree
 
   create_table "reservations", force: :cascade do |t|
-    t.float    "amout",      limit: 24
-    t.integer  "rate",       limit: 4
-    t.boolean  "type",       limit: 1
-    t.integer  "status",     limit: 4,  default: 0
-    t.integer  "user_id",    limit: 4
-    t.integer  "shop_id",    limit: 4
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.float    "amout",          limit: 24
+    t.integer  "rate",           limit: 4
+    t.boolean  "btc_jpy",        limit: 1
+    t.integer  "status",         limit: 4,  default: 0
+    t.integer  "user_id",        limit: 4
+    t.integer  "shop_id",        limit: 4
+    t.integer  "btc_address_id", limit: 4
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "settings", force: :cascade do |t|
@@ -81,35 +93,36 @@ ActiveRecord::Schema.define(version: 20161213044709) do
   end
 
   create_table "shops", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "address",    limit: 255
-    t.string   "phone",      limit: 255
-    t.float    "deposit",    limit: 24
-    t.string   "lat",        limit: 255
-    t.string   "long",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",        limit: 255
+    t.string   "address",     limit: 255
+    t.string   "phone",       limit: 255
+    t.float    "deposit",     limit: 24
+    t.string   "lat",         limit: 255
+    t.string   "long",        limit: 255
+    t.integer  "operator_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",    null: false
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.boolean  "operator",               limit: 1,   default: false
     t.string   "user_name",              limit: 255
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "btc_addresses", "shops"
   add_foreign_key "btc_addresses", "users"
 end

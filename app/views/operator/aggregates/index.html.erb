@@ -1,0 +1,51 @@
+<h1>Aggregate</h1>
+<h2>Rate (actual)</h2>
+1 BTC = <%= @btc_jpy.value %> ¥ <br>
+1 BTC = <%= @btc_usd.value %> $ <br>
+1 USD = <%= @usd_jpy.value %> ¥ <br>
+<h2>Rate (fixed)</h2>
+1 BTC = <%= @btc_jpy.value.to_f + @btc_jpy.value.to_f * @rate_percent.value.to_f / 100 %> ¥ <br>
+1 BTC = <%= @btc_usd.value.to_f + @btc_usd.value.to_f * @rate_percent.value.to_f / 100 %> $ <br>
+1 USD = <%= @usd_jpy.value.to_f + @usd_jpy.value.to_f * @rate_percent.value.to_f / 100 %> ¥ <br>
+<h2>The summary result</h2>
+<h3>Update percentage</h3>
+<%= form_tag(update_percent_operator_aggregates_path) %>
+  <div class="form-group">
+    <%= number_field_tag :shop, @percent.split(":").first, class: "form-control", placeholder: "Shop percent" %>
+  </div>
+  <div class="form-group">
+    <%= number_field_tag :admin, @percent.split(":").last, class: "form-control", placeholder: "Admin percent" %>
+  </div>
+  <%= submit_tag :update, class: "btn btn-default" %>
+<table class="table table-hover">
+  <tr>
+    <th>Total</th>
+    <th>Number of transactions</th>
+    <th colspan="2">Percentage</th>
+  </tr>
+  <tr>
+    <td><%= @total %></td>
+    <td><%= @number_transactions %></td>
+    <td>Shop: <%= @shop_amount %></td>
+    <td>Admin: <%= @admin_amount %></td>
+  </tr>
+</table>
+<h2>Current rate (fixed) percent: </h2>
+<%= form_tag(update_rate_operator_aggregates_path) %>
+  <div class="form-group">
+    <%= number_field_tag :rate, @rate_percent.value, class: "form-control" %>
+  </div>
+  <%= submit_tag :update, class: "btn btn-default" %>
+<h2>The current balance of cash</h2>
+<table class="table table-hover">
+  <tr>
+    <th>Shop Name</th>
+    <th>Amount</th>
+  </tr>
+  <% @shop.each do |s| %>
+    <tr>
+      <td><%= s.name %></td>
+      <td><%= s.balances.jpy_btc.sum(:amount) - s.balances.btc_jpy.sum(:amount) %></td>
+    </tr>
+  <% end -%>
+</table>

@@ -1,0 +1,10 @@
+<h1>Detail</h1>
+<p>Amount: <%= @reservation.amout %></p>
+<% if @reservation.btc_jpy %>
+  <p>BTC Address: <%= @reservation.btc_address.address %></p>
+  <p>Shop: <%= @reservation.shop.name %></p>
+<% else %>
+  <p>BTC Address: <%= @reservation.btc_address.address %></p>
+<% end -%>
+  <p>Date and time of receipt: <%= @reservation.created_at %></p>
+  

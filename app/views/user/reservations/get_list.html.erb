@@ -1,0 +1,45 @@
+<h1>History</h1>
+<div class="panel panel-default">
+  <div class="panel-heading"><h2>Reservation Exchanges</h2></div>
+  <div class="panel-body">
+    <table class="table table-hover">
+      <tr>
+        <th>Amount (BTC)</th>
+        <th>Recieving Place</th>
+        <th>BTC Address</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+      <% @reservations.each do |r| %>
+        <tr>
+          <td><%= r.amout %></td>
+          <td><%= r.shop.name %></td>
+          <td><%= r.btc_address.address %></td>
+          <td><%= r.get_status %></td>
+          <td><%= link_to "Detail", user_reservation_path(r.id) %></td>
+        </tr>
+      <% end -%>
+    </table>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading"><h2>JPY -> BTC Exchange</h2></div>
+  <div class="panel-body">
+    <table class="table table-hover">
+      <tr>
+        <th>Amount (JPY)</th>
+        <th>BTC Transfer address</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+      <% @jpy_btc.each do |r| %>
+        <tr>
+          <td><%= r.amout %></td>
+          <td><%= r.btc_address.address %></td>
+          <td><%= r.get_status %></td>
+          <td><%= link_to "Detail", user_reservation_path(r.id) %></td>
+        </tr>
+      <% end -%>
+    </table>
+  </div>
+</div>
