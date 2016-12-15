@@ -12,8 +12,8 @@
     <tr>
       <td><%= o.user_name %></td>
       <td><%= o.get_admin %></td>
-      <td><%= link_to "Detail", edit_operator_store_path(o.id) %></td>
-      <td><%= link_to "Edit", operator_store_path(o.id) %></td>
+      <td><%= link_to "Detail", operator_operator_path(o.id) %></td>
+      <td><%= link_to "Get shop", get_shop_operator_operator_path(o.id) %></td>
     </tr>
   <% end -%>
 </table>

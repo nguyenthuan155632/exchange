@@ -1,0 +1,13 @@
+<h1>Shop of <%= @operator.user_name %></h1>
+<table class="table table-hover">
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+  </tr>
+  <% @shops.each do |s| %>
+    <tr>
+      <td><%= s.name %></td>
+      <td><%= s.address %></td>
+    </tr>
+  <% end -%>
+</table>
