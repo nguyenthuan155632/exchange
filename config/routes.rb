@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     namespace :operator do
       resources :home, only: :index
       resources :stores
+      resources :kycs, only: [:edit, :update]
+      resources :users, only: [:index, :show, :edit, :update, :destroy]
+
+      post 'kycs/:id/confirm' => 'kycs#confirm', as: 'confirm_kyc'
       resources :operators, only: [:index, :show] do
         member do
           get :get_shop
