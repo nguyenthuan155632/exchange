@@ -15,6 +15,10 @@ end
 	Operator.create(admin: true, password: "123456", user_name: Faker::Internet.user_name, )
 end	
 
+(1..20).each do
+  BtcAddress.create(address: Faker::Bitcoin.address, user_id: 1, shop_id: Faker::Number.between(1, 5))
+end
+
 (1..100).each do
   BtcAddress.create(address: Faker::Bitcoin.address, user_id: Faker::Number.between(1, 50), shop_id: Faker::Number.between(1, 50))
 end
