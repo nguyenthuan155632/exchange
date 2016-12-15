@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213044709) do
+ActiveRecord::Schema.define(version: 20161215041420) do
+
+  create_table "balances", force: :cascade do |t|
+    t.float    "amount",     limit: 24
+    t.integer  "shop_id",    limit: 4
+    t.boolean  "jpy_btc",    limit: 1
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
 
   create_table "btc_addresses", force: :cascade do |t|
     t.string   "address",    limit: 255

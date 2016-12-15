@@ -14,6 +14,12 @@ Rails.application.routes.draw do
       resources :home, only: :index
       resources :stores
       resources :operators
+      resources :aggregates, only: :index do
+        collection do
+          post  :update_rate
+          post  :update_percent
+        end
+      end
     end
 
     namespace :user do
