@@ -1,8 +1,10 @@
 class Operator::ReservationsController < Operator::BaseController
 
 	def index
-		@q = Reservation.ransack(params[:q])
-		@reservations = @q.result(distinct: true).includes(:btc_address, :shop, :user).paginate(:page => params[:page], :per_page => 5)
+    @a = Reservation.where(:btc_jpy => false).ransack(params[:a])
+    @q = Reservation.where(:btc_jpy => true).ransack(params[:q])
+    @reservations = @q.result(distinct: true).includes(:btc_address, :shop, :user).paginate(:page => params[:reservations_param], :per_page => 5)
+    @jpy_exchange = @a.result(distinct: true).includes(:btc_address, :shop, :user).paginate(:page => params[:jpy_exchange_param], :per_page => 5)
   end
 
   def update_status

@@ -16,12 +16,4 @@ class Reservation < ActiveRecord::Base
       "Not applicable"
     end 
   end
-
-  def get_type
-    if self.btc_jpy
-      "「BTC → JPY」"
-    else
-      "「JPY → BTC」"
-    end
-  end
 end
