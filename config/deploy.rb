@@ -3,7 +3,7 @@ server 'ec2-54-249-68-119.ap-northeast-1.compute.amazonaws.com', port: 80, roles
 
 set :repo_url,        'git@gitlab.com:khoatt/exchange.git'
 set :application,     'exchange'
-set :user,            'deploy'
+set :user,            'ubuntu'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
 
