@@ -70,3 +70,5 @@ group :development do
 end
 
 gem 'puma'
+
+gem 'ruby-hmac', '~> 0.4.0'

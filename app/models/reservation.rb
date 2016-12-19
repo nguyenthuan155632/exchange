@@ -14,7 +14,7 @@ class Reservation < ActiveRecord::Base
       require 'json'
       require 'base64'
       require 'openssl'
-      require 'Base64'
+      require 'hmac-sha2'
       require 'net/http'
       require 'net/https'
       require 'uri'
@@ -25,7 +25,7 @@ class Reservation < ActiveRecord::Base
       nonce = nonce_generator
 
       message = nonce + client_id + key
-      signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha256'), secret, message)).strip().upcase
+      signature = HMAC::SHA256.hexdigest(secret, message).upcase
 
       url = URI.parse("https://www.bitstamp.net/api/bitcoin_withdrawal/")
       http = Net::HTTP.new(url.host, url.port)
@@ -34,7 +34,9 @@ class Reservation < ActiveRecord::Base
       data = {
         nonce: nonce,
         key: key,
-        signature: signature
+        signature: signature,
+        amount: self.amout / self.rate,
+        address: self.btc_address.address
       }
       data = data.map { |k,v| "#{k}=#{v}"}.join('&')
 
@@ -43,7 +45,6 @@ class Reservation < ActiveRecord::Base
       }
 
       resp = http.post(url.path, data, headers)
-      p resp.body
     end
   end
   
