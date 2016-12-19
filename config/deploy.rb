@@ -1,6 +1,4 @@
 # Change these
-server '54.249.68.119', user: 'ubuntu', roles: %w{web app db}
-
 set :repo_url,        'git@gitlab.com:khoatt/exchange.git'
 set :application,     'exchange'
 set :user,            'ubuntu'
