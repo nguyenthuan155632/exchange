@@ -1,5 +1,5 @@
 # Change these
-server 'ec2-54-249-68-119.ap-northeast-1.compute.amazonaws.com', user: 'ubuntu', roles: %w{web app db}, port: 443, primary: true
+server '54.249.68.119', user: 'ubuntu', roles: %w{web app db}
 
 set :repo_url,        'git@gitlab.com:khoatt/exchange.git'
 set :application,     'exchange'
