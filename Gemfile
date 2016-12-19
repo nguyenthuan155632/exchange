@@ -59,3 +59,14 @@ gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 gem 'will_paginate', '~> 3.1.0'
 
 gem 'ransack'
+
+# Deploy
+group :development do
+    gem 'capistrano',         require: false
+    gem 'capistrano-rvm',     require: false
+    gem 'capistrano-rails',   require: false
+    gem 'capistrano-bundler', require: false
+    gem 'capistrano3-puma',   require: false
+end
+
+gem 'puma'

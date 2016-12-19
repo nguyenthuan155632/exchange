@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     namespace :operator do
       resources :home, only: :index
       resources :stores
-      resources :reservations, only: [:index]
+      resources :reservations, only: [:index] do
+        collection do
+          get :jpy_btc
+        end
+      end
 
       post 'update_status', to: 'reservations#update_status'
       resources :kycs, only: [:edit, :update]

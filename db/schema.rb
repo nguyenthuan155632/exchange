@@ -74,15 +74,16 @@ ActiveRecord::Schema.define(version: 20161215041420) do
   add_index "operators", ["user_name"], name: "index_operators_on_user_name", unique: true, using: :btree
 
   create_table "reservations", force: :cascade do |t|
-    t.float    "amout",          limit: 24
-    t.integer  "rate",           limit: 4
-    t.boolean  "btc_jpy",        limit: 1
-    t.integer  "status",         limit: 4,  default: 0
-    t.integer  "user_id",        limit: 4
-    t.integer  "shop_id",        limit: 4
-    t.integer  "btc_address_id", limit: 4
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.float    "amout",             limit: 24
+    t.integer  "rate",              limit: 4
+    t.boolean  "btc_jpy",           limit: 1
+    t.integer  "status",            limit: 4,  default: 0
+    t.integer  "user_id",           limit: 4
+    t.integer  "shop_id",           limit: 4
+    t.integer  "btc_address_id",    limit: 4
+    t.datetime "date_time_receipt"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   create_table "settings", force: :cascade do |t|

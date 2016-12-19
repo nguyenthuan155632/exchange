@@ -11,7 +11,7 @@
   <div class="form-group">
     <%= f.label :rate %><br>
     <p class="help-block">1 BTC = &nbsp;
-      <%= number_to_currency @btc_jpy.value, delimiter: ",", unit: "¥", format: "%u %n", precision: 0 %></p>
+      ¥ <%= @btc_jpy.value.to_f + @btc_jpy.value.to_f * 10 / 100 %></p>
   </div>
   <div class="form-group">
     <%= f.label "JPY you will receive" %><br>

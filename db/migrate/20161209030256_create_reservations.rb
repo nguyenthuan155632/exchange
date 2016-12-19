@@ -8,6 +8,7 @@ class CreateReservations < ActiveRecord::Migration
       t.references  :user
       t.references  :shop
       t.references  :btc_address
+      t.datetime  :date_time_receipt, default: nil
 
       t.timestamps null: false
     end

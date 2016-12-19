@@ -1,7 +1,6 @@
 class User::ReservationsController < User::BaseController
   def new
     @btc_jpy = Setting.where(:key => "BTCJPY").first
-    # @usd_jpy = Setting.where(:key => "USDJPY").first
   end
 
   def new_jpy_btc
@@ -11,7 +10,8 @@ class User::ReservationsController < User::BaseController
   def create_jpy_btc
     @reservation = current_user.reservations.new(jpy_btc_params)
     @reservation.btc_jpy = false
-    @reservation.rate = Setting.where(:key => "BTCJPY").first.value
+    @btc_jpy = Setting.where(:key => "BTCJPY").first.value
+    @reservation.rate = (@btc_jpy.to_f + @btc_jpy.to_f * 10 / 100)
     @reservation.save
     flash[:success] = "JPY -> BTC Exchange success"
 
@@ -34,9 +34,10 @@ class User::ReservationsController < User::BaseController
     require 'net/http'
     require 'net/https'
 
+    @btc_jpy = Setting.where(:key => "BTCJPY").first.value
     @reservation = current_user.reservations.new(reservation_params)
     @reservation.btc_jpy = true
-    @reservation.rate = Setting.where(:key => "BTCJPY").first.value
+    @reservation.rate = (@btc_jpy.to_f + @btc_jpy.to_f * 10 / 100)
     
 
     uri = URI.parse("https://www.blockonomics.co/api/new_address")
@@ -53,11 +54,13 @@ class User::ReservationsController < User::BaseController
   end
 
   def btc_value
-    render text: (params['jpy_value'].to_f * Setting.where(:key => "BTCJPY").first.value.to_f).to_s
+    @btc_jpy = Setting.where(:key => "BTCJPY").first.value.to_f
+    render text: (params['jpy_value'].to_f * (@btc_jpy.to_f + @btc_jpy.to_f * 10 / 100)).to_s
   end
 
   def jpy_value
-    render text: (params['btc_value'].to_f / Setting.where(:key => "BTCJPY").first.value.to_f).to_s
+    @btc_jpy = Setting.where(:key => "BTCJPY").first.value.to_f
+    render text: (params['btc_value'].to_f / (@btc_jpy.to_f + @btc_jpy.to_f * 10 / 100)).to_s
   end
 
   def get_list

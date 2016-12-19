@@ -1,7 +1,5 @@
-<h1>History List</h1>
-
 <div class="panel panel-default">
-  <div class="panel-heading"><h2>Reservation Exchanges</h2></div>
+  <div class="panel-heading"><h2>JPY -> BTC Exchange</h2></div>
   <div class="panel-body">
     <%= search_form_for @q, url: operator_reservations_path, class: "text-center" do |f| %>
       <div class="form-group col-sm-6">
@@ -19,9 +17,6 @@
       <div class="form-group col-sm-6">
         <%= f.select :status_eq, { "Status" => "", "Receiving" => 0, "Exchange completed" => 1, "Not applicable" => 2 }, {}, { class: "form-control" } %>
       </div>
-      <div class="form-group col-sm-6">
-        <%= f.collection_select :shop_id_eq, Shop.all, :id, :name, { prompt: "Select Store" }, { :class => "form-control" } %>
-      </div>
       <div style="clear: both;"></div>
       <%= link_to "Cancel", operator_reservations_path, class: "btn btn-default" %>
       <%= f.submit "Search", class: "btn btn-default" %>
@@ -30,15 +25,14 @@
       <tr>
         <th><%= sort_link(@q, :user_user_name, 'Name of User\'s account') %></th>
         <th><%= sort_link(@q, :created_at, 'Reservation date') %></th>
-        <th><%= sort_link(@q, :amout, 'Exchange amount') %></th>
+        <th><%= sort_link(@q, :amout, 'BTC amount') %></th>
         <th><%= sort_link(@q, :btc_address_address, 'BTC address') %></th>
-        <th>BTC amount</th>
+        <th>JPY amount</th>
         <th>Status</th>
-        <th><%= sort_link(@q, :shop_name, 'Receiving place') %></th>
         <th>Date and time of receipt</th>
         <th></th>
       </tr>
-      <% @reservations.each do |r| %>
+      <% @jpy_exchange.each do |r| %>
         <tr>
           <%= form_for r, url: operator_update_status_path, method: 'post' do |f| %>
           <%=  f.hidden_field :id %>
@@ -46,13 +40,12 @@
           <td><%= r.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
           <td><%= r.amout %></td>
           <td><%= r.btc_address.address %></td>
-          <td class="text-danger">Doing</td>
+          <td><%= r.amout / r.rate %></td>
           <% if r.status == 0 %>
           <td><%= f.select :status, { "Receiving" => 0, "Exchange completed" => 1, "Not applicable" => 2 } %></td>
           <% else %>
           <td><%= r.get_status %></td>
           <% end %>
-          <td><%= r.shop.name %></td>
           <td><%= r.date_time_receipt %></td>
           <% if r.status == 0 %>
           <td class="text-success"><%= f.submit "Update", class: "btn btn-success" %></td>
@@ -61,8 +54,8 @@
           <% end %>
           <% end %>
         </tr>
-      <% end -%> 
+      <% end -%>
     </table>
-    <%= will_paginate @reservations, :param_name => 'reservations_param' %>
+    <%= will_paginate @jpy_exchange, :param_name => 'jpy_exchange_param' %>
   </div>
 </div>
