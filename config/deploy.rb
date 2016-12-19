@@ -8,7 +8,7 @@ require 'mina/rvm'    # for rvm support. (https://rvm.io)
 #   deploy_to    - Path to deploy into.
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
-
+set :rvm_path, '/usr/local/rvm/scripts/rvm'
 set :application_name, 'exchange'
 set :domain, '54.249.68.119'
 set :deploy_to, '/var/www/exchange.com'
@@ -32,7 +32,7 @@ task :environment do
   # invoke :'rbenv:load'
 
   # For those using RVM, use this to load an RVM version@gemset.
-  invoke :'rvm:use[ruby-2.2.0p0@default]'
+  invoke :'rvm:use','ruby-2.2.0p0@default'
 end
 
 # Put any custom commands you need to run at setup
@@ -51,7 +51,7 @@ task :deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-    invoke :'rails:db_migrate'
+    # invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
