@@ -61,3 +61,5 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'ransack'
 
 gem 'ruby-hmac', '~> 0.4.0'
+
+gem 'mina'
