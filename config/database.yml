@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: exchange_production
-  username: exchange
-  password: <%= ENV['EXCHANGE_DATABASE_PASSWORD'] %>
+  username: root
+  password: root
