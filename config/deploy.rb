@@ -1,4 +1,6 @@
 # Change these
+server '54.249.68.119', user: 'ubuntu', roles: %w{web app db}
+
 set :repo_url,        'git@gitlab.com:khoatt/exchange.git'
 set :application,     'exchange'
 set :user,            'ubuntu'
@@ -16,7 +18,11 @@ set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
 set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.error.log"
 set :puma_error_log,  "#{release_path}/log/puma.access.log"
-set :ssh_options,     { forward_agent: false, user: fetch(:user), keys: %w(/home/localuser/.ssh/id_rsa) }
+set :ssh_options, {
+  keys: %w(~/.ssh/id_rsa.pub),
+  forward_agent: false,
+  user: 'ubuntu'
+} 
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
