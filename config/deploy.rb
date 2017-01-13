@@ -2,7 +2,7 @@
 lock "3.7.1"
 
 set :application, "exchange"
-set :repo_url, "git@gitlab.com:nguyenthuan155632/exchange.git"
+set :repo_url, "https://github.com/nguyenthuan155632/exchange.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
