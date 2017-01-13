@@ -63,3 +63,7 @@ gem 'ransack'
 gem 'ruby-hmac', '~> 0.4.0'
 
 gem 'mina'
+
+gem 'execjs'
+
+gem 'therubyracer'
