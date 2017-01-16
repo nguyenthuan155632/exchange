@@ -49,11 +49,11 @@
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
- server "ec2-35-167-153-231.us-west-2.compute.amazonaws.com",
-   user: "ubuntu",
+ server "ec2-54-202-116-224.us-west-2.compute.amazonaws.com",
+   user: "ec2-user",
    roles: %w{web app},
    ssh_options: {
-     user: "ubuntu", # overrides user setting above
+     user: "ec2-user", # overrides user setting above
      keys: %w(/home/ubuntu/.ssh/deploy_aws_ror.pem),
      forward_agent: true,
      # auth_methods: %w(publickey)
